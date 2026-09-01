@@ -14,37 +14,35 @@ worker/                     Cloudflare Worker that forwards leads to Telegram
 
 ---
 
-## 1. Set up the Telegram bot
+## 1. Telegram bot
 
-1. In Telegram, open **@BotFather** → `/newbot` → follow the prompts.
-   Copy the token it gives you (looks like `1234567890:AAE...`).
-2. Create a group for incoming leads and add the bot to it.
-3. Get the chat id: open `https://api.telegram.org/bot<TOKEN>/getUpdates` in a browser
-   after sending one message in the group. Look for `"chat":{"id":-100...}`.
-   Group ids are negative — keep the minus sign.
+Already set up: bot **@loghottube_bot**, posting into group **-1003956851336**.
+The chat id lives in `worker/wrangler.toml` — it is useless without the token, so
+there is no reason to hide it.
 
-> **The token is a password.** Never put it in `index.html`, in any file in this repo,
-> or in a commit. If it ever lands in a public repo, GitHub reports it to Telegram and
-> the token is revoked. Regenerate it with `/revoke` in BotFather if that happens.
+> **The bot token is a password.** It must never appear in `index.html`, in this repo,
+> or in any commit. If it ever lands in a public repo, GitHub reports it to Telegram
+> and the token is revoked automatically. Step 2 sets it directly in Cloudflare, so it
+> never touches the repo. If it does leak, regenerate it with `/revoke` in @BotFather.
+
+Check the bot is actually in the group and allowed to post there — a bot that was
+added but then restricted will make `sendMessage` fail with 403, and the worker will
+answer the form with `telegram_failed`.
 
 ## 2. Deploy the Worker
 
+Needs a free Cloudflare account. `npx` fetches wrangler on demand — nothing to install
+globally.
+
 ```bash
-npm install -g wrangler
 cd worker
-wrangler login
+npx wrangler login
+npx wrangler secret put TELEGRAM_BOT_TOKEN
+npx wrangler deploy
 ```
 
-Edit `worker/wrangler.toml` and set `ALLOWED_ORIGIN` to the site's real origin
-(e.g. `https://yourname.github.io`). Then:
-
-```bash
-wrangler secret put TELEGRAM_BOT_TOKEN
-wrangler secret put TELEGRAM_CHAT_ID
-wrangler deploy
-```
-
-`wrangler deploy` prints a URL like `https://hot-tub-elite-leads.<subdomain>.workers.dev`.
+`secret put` prompts for the token and sends it straight to Cloudflare. `deploy` prints
+the URL, something like `https://hot-tub-elite-leads.<subdomain>.workers.dev`.
 
 ## 3. Point the page at the Worker
 
