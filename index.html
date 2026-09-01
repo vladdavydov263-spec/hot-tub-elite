@@ -154,9 +154,8 @@ section.block{padding:104px 0}
 
 /* ---- add-on: wood stove ---- */
 .opt{display:grid;grid-template-columns:1fr 1.05fr;gap:58px;align-items:center}
-.opt-photos{display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:1fr;gap:12px;aspect-ratio:1/1}
-.opt-photos .ph{border-radius:16px;overflow:hidden}
-.opt-photos .ph:first-child{grid-column:span 2}
+.opt-photos{display:grid;grid-template-columns:1fr;gap:12px}
+.opt-photos .ph{border-radius:16px;overflow:hidden;aspect-ratio:2/1}
 .opt-price{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin:26px 0 24px;padding:18px 22px;background:rgba(150,99,47,.09);border:1px solid rgba(150,99,47,.26);border-radius:16px}
 .opt-price b{font-family:'Fraunces',Georgia,serif;font-size:1.9rem;font-weight:500;color:var(--amber-deep);line-height:1}
 .opt-price span{color:var(--espresso-soft);font-size:.94rem}
@@ -168,7 +167,7 @@ section.block{padding:104px 0}
 .gallery-sec .head h2{color:var(--cream)}
 .gallery-sec .head p{color:rgba(248,248,249,.7)}
 .gallery-sec .accent{color:var(--amber-light)}
-.gallery{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:190px;gap:14px}
+.gallery{display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:230px;gap:14px}
 .gtile{border-radius:16px;overflow:hidden;transition:transform .35s}
 .gtile:hover{transform:scale(1.02)}
 .gtile.big{grid-column:span 2;grid-row:span 2}
@@ -177,7 +176,6 @@ section.block{padding:104px 0}
 /* ---- reviews ---- */
 .reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
 .review{background:var(--cream-2);border:1px solid var(--line);border-radius:20px;padding:28px 26px}
-.review-photo{aspect-ratio:4/3;border-radius:14px;overflow:hidden;margin-bottom:18px}
 .stars{color:var(--amber);letter-spacing:3px;font-size:1rem;margin-bottom:14px}
 .review blockquote{font-size:1rem;font-style:italic;font-family:'Fraunces',Georgia,serif;line-height:1.55;margin-bottom:20px}
 .reviewer{display:flex;align-items:center;gap:14px}
@@ -277,7 +275,7 @@ footer p.desc{color:var(--espresso-soft);font-size:.93rem;max-width:280px}
 /* ---- responsive ---- */
 @media(max-width:1080px){
   .why,.opt{grid-template-columns:1fr;gap:44px}
-  .opt-photos{aspect-ratio:4/3}
+  .opt-photos{gap:12px}
   .why-photo{aspect-ratio:16/10;max-height:420px}
   .faq-grid{grid-template-columns:1fr;gap:36px}
   .faq-side{position:static}
@@ -403,7 +401,6 @@ footer p.desc{color:var(--espresso-soft);font-size:.93rem;max-width:280px}
             <div class="slider-track">
               <div class="slide ph" data-ph="models/5r50-1.jpg"><img src="images/models/5r50-1.jpg" alt="Jacuzzi ogrodowe Model 5R50 — widok z góry" loading="lazy" width="600" height="450" onerror="this.remove()"></div>
               <div class="slide ph" data-ph="models/5r50-2.jpg"><img src="images/models/5r50-2.jpg" alt="Jacuzzi ogrodowe Model 5R50 — wnętrze niecki z dyszami" loading="lazy" width="600" height="450" onerror="this.remove()"></div>
-              <div class="slide ph" data-ph="models/5r50-3.jpg"><img src="images/models/5r50-3.jpg" alt="Jacuzzi ogrodowe Model 5R50 — obudowa i panel sterowania" loading="lazy" width="600" height="450" onerror="this.remove()"></div>
             </div>
             <button class="sl-btn prev" data-dir="-1" aria-label="Poprzednie zdjęcie">‹</button>
             <button class="sl-btn next" data-dir="1" aria-label="Następne zdjęcie">›</button>
@@ -434,7 +431,6 @@ footer p.desc{color:var(--espresso-soft);font-size:.93rem;max-width:280px}
             <div class="slider-track">
               <div class="slide ph" data-ph="models/6r02-1.jpg"><img src="images/models/6r02-1.jpg" alt="Jacuzzi ogrodowe Model 6R02 — widok z góry" loading="lazy" width="600" height="450" onerror="this.remove()"></div>
               <div class="slide ph" data-ph="models/6r02-2.jpg"><img src="images/models/6r02-2.jpg" alt="Jacuzzi ogrodowe Model 6R02 — wnętrze niecki z dyszami" loading="lazy" width="600" height="450" onerror="this.remove()"></div>
-              <div class="slide ph" data-ph="models/6r02-3.jpg"><img src="images/models/6r02-3.jpg" alt="Jacuzzi ogrodowe Model 6R02 — obudowa i panel sterowania" loading="lazy" width="600" height="450" onerror="this.remove()"></div>
             </div>
             <button class="sl-btn prev" data-dir="-1" aria-label="Poprzednie zdjęcie">‹</button>
             <button class="sl-btn next" data-dir="1" aria-label="Następne zdjęcie">›</button>
@@ -465,7 +461,6 @@ footer p.desc{color:var(--espresso-soft);font-size:.93rem;max-width:280px}
             <div class="slider-track">
               <div class="slide ph" data-ph="models/5a13-1.jpg"><img src="images/models/5a13-1.jpg" alt="Jacuzzi ogrodowe Model 5A13 — widok z góry" loading="lazy" width="600" height="450" onerror="this.remove()"></div>
               <div class="slide ph" data-ph="models/5a13-2.jpg"><img src="images/models/5a13-2.jpg" alt="Jacuzzi ogrodowe Model 5A13 — wnętrze niecki z dyszami" loading="lazy" width="600" height="450" onerror="this.remove()"></div>
-              <div class="slide ph" data-ph="models/5a13-3.jpg"><img src="images/models/5a13-3.jpg" alt="Jacuzzi ogrodowe Model 5A13 — obudowa i panel sterowania" loading="lazy" width="600" height="450" onerror="this.remove()"></div>
             </div>
             <button class="sl-btn prev" data-dir="-1" aria-label="Poprzednie zdjęcie">‹</button>
             <button class="sl-btn next" data-dir="1" aria-label="Następne zdjęcie">›</button>
@@ -531,7 +526,6 @@ footer p.desc{color:var(--espresso-soft);font-size:.93rem;max-width:280px}
     <div class="opt-photos reveal" style="transition-delay:.1s">
       <div class="ph" data-ph="piec/piec-1.jpg"><img src="images/piec/piec-1.jpg" alt="Zewnętrzny piec na drewno do jacuzzi ogrodowego, podłączony wężami do wanny" loading="lazy" width="900" height="675" onerror="this.remove()"></div>
       <div class="ph" data-ph="piec/piec-2.jpg"><img src="images/piec/piec-2.jpg" alt="Palenisko pieca na drewno z rozpalonym ogniem" loading="lazy" width="600" height="600" onerror="this.remove()"></div>
-      <div class="ph" data-ph="piec/piec-3.jpg"><img src="images/piec/piec-3.jpg" alt="Jacuzzi ogrodowe z kominem pieca na drewno w ogrodzie" loading="lazy" width="600" height="600" onerror="this.remove()"></div>
     </div>
   </div>
 </section>
@@ -586,19 +580,16 @@ footer p.desc{color:var(--espresso-soft);font-size:.93rem;max-width:280px}
     </div>
     <div class="reviews">
       <article class="review reveal">
-        <div class="review-photo ph" data-ph="reviews/1.jpg"><img src="images/reviews/1.jpg" alt="Jacuzzi Hot Tub Elite z piecem na drewno u klienta z Wrocławia" loading="lazy" width="900" height="675" onerror="this.remove()"></div>
         <p class="stars" aria-label="Ocena 5 na 5">★★★★★</p>
         <blockquote>„Jacuzzi stoi już rok i sprawdza się idealnie zimą. Woda nagrzewa się szybciej niż myślałem, jakość akrylu pierwsza klasa."</blockquote>
         <div class="reviewer"><div class="av" aria-hidden="true">K</div><div><b>Krzysztof N.</b><small>Wrocław</small></div></div>
       </article>
       <article class="review reveal" style="transition-delay:.1s">
-        <div class="review-photo ph" data-ph="reviews/2.jpg"><img src="images/reviews/2.jpg" alt="Jacuzzi Hot Tub Elite z włączonym hydromasażem u klienta z Krakowa" loading="lazy" width="900" height="675" onerror="this.remove()"></div>
         <p class="stars" aria-label="Ocena 5 na 5">★★★★★</p>
         <blockquote>„Cała rodzina zakochana. Dostawa zgodnie z obietnicą, montaż na miejscu. Polecam każdemu, kto się waha."</blockquote>
         <div class="reviewer"><div class="av" aria-hidden="true">M</div><div><b>Magdalena R.</b><small>Kraków</small></div></div>
       </article>
       <article class="review reveal" style="transition-delay:.2s">
-        <div class="review-photo ph" data-ph="reviews/3.jpg"><img src="images/reviews/3.jpg" alt="Jacuzzi Hot Tub Elite przygotowane do odbioru przez klienta z Poznania" loading="lazy" width="900" height="675" onerror="this.remove()"></div>
         <p class="stars" aria-label="Ocena 5 na 5">★★★★★</p>
         <blockquote>„Najlepsza inwestycja w ogród. Wieczorny relaks pod gwiazdami — nie wyobrażam sobie tego bez Hot Tub Elite."</blockquote>
         <div class="reviewer"><div class="av" aria-hidden="true">T</div><div><b>Tomasz W.</b><small>Poznań</small></div></div>
@@ -868,7 +859,7 @@ const CONFIG = {
   metaPixelId: '',  // e.g. '1234567890'   — leave empty to disable
 
   whatsapp: '48576694076',
-  galleryCount: 12
+  galleryCount: 6
 };
 
 /* ---------- year ---------- */
@@ -895,7 +886,9 @@ mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => 
 
 /* ---------- gallery tiles (built here so photo count is one number to change) ---------- */
 const galleryEl = document.getElementById('gallery');
-const layout = { 0: 'big', 3: 'wide', 8: 'wide' };
+// A single 2x2 feature tile; the rest are equal. With three columns this
+// fills the grid exactly for any tile count divisible by three.
+const layout = { 0: 'big' };
 // The single-file preview build fills this with data: URIs; on the real site it stays empty.
 const gallerySrc = window.GALLERY_SRC || {};
 let galleryHtml = '';

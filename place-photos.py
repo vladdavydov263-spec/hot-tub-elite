@@ -25,43 +25,35 @@ SRC = sorted(INBOX.rglob('*.jpg'))
 
 # slot -> (source index, target aspect w/h or None to only resize, focal, long edge)
 PLAN = {
-    # first screen — portrait garden shot into a 4:3 frame, biased down onto the tub
-    'hero.jpg':               (12, 4 / 3,  0.62, 1400),
-    # "Dlaczego" — the 5:6 portrait slot
-    'why.jpg':                (19, 5 / 6,  0.50, 1080),
+    # Every source photo is used exactly once. There are 16 distinct shots and the
+    # page has room for more, so sections are sized to the photos rather than the
+    # photos stretched across the sections — a gallery that repeats the sliders
+    # above it reads as padding.
 
-    'models/6r02-1.jpg':      (13, 4 / 3,  0.50, 1200),
-    'models/6r02-2.jpg':      (14, 4 / 3,  0.55, 1200),
-    'models/6r02-3.jpg':      (15, 4 / 3,  0.50, 1200),
+    'hero.jpg':               (12, 4 / 3,  0.62, 1400),   # garden, cover open
+    'why.jpg':                (19, 5 / 6,  0.50, 1080),   # lake and mountains
 
-    'models/5a13-1.jpg':      (16, 4 / 3,  0.55, 1200),
-    'models/5a13-2.jpg':      (17, 4 / 3,  0.55, 1200),
-    'models/5a13-3.jpg':      (18, 4 / 3,  0.50, 1200),
+    # Model sliders: two shots each — a full view and a detail.
+    'models/5r50-1.jpg':      (16, 4 / 3,  0.55, 1200),   # on the pallet
+    'models/5r50-2.jpg':      (18, 4 / 3,  0.50, 1200),   # interior, from above
 
-    # wood stove — pulled out of the gallery batch, where these three had landed
-    'piec/piec-1.jpg':        (6,  2 / 1,  0.52, 1200),   # stove hooked up beside the tub
-    'piec/piec-2.jpg':        (7,  1 / 1,  0.46, 900),    # firebox, lit
-    'piec/piec-3.jpg':        (3,  1 / 1,  0.55, 900),    # tub with the chimney, in a field
+    'models/6r02-1.jpg':      (13, 4 / 3,  0.50, 1200),   # jets running, chimney
+    'models/6r02-2.jpg':      (14, 4 / 3,  0.55, 1200),   # still water at sunset
 
-    # customer photos on the review cards
-    'reviews/1.jpg':          (20, 4 / 3,  0.50, 900),
-    'reviews/2.jpg':          (21, 4 / 3,  0.50, 900),
-    'reviews/3.jpg':          (22, 4 / 3,  0.50, 900),
+    'models/5a13-1.jpg':      (1,  4 / 3,  0.50, 1200),   # cover open, on the pallet
+    'models/5a13-2.jpg':      (0,  4 / 3,  0.50, 1200),   # interior, from above
 
-    # gallery — object-fit handles the tile shapes, so resize only, except the
-    # opening 2x2 tile which gets a deliberate crop
-    'gallery/01.jpg':         (9,  3 / 2,  0.62, 1300),
-    'gallery/02.jpg':         (0,  None,   0.50, 1200),
-    'gallery/03.jpg':         (1,  None,   0.50, 1200),
-    'gallery/04.jpg':         (2,  None,   0.50, 1200),   # landscape -> wide tile
-    'gallery/05.jpg':         (5,  None,   0.50, 1200),
-    'gallery/06.jpg':         (4,  None,   0.50, 1200),
-    'gallery/07.jpg':         (6,  None,   0.50, 1200),
-    'gallery/08.jpg':         (7,  None,   0.50, 1200),
-    'gallery/09.jpg':         (8,  None,   0.50, 1200),   # landscape -> wide tile
-    'gallery/10.jpg':         (10, None,   0.50, 1200),
-    'gallery/11.jpg':         (11, None,   0.50, 1200),
-    'gallery/12.jpg':         (3,  None,   0.50, 1200),
+    # Wood stove: the two shots that actually show the stove.
+    'piec/piec-1.jpg':        (6,  2 / 1,  0.52, 1200),   # hooked up beside the tub
+    'piec/piec-2.jpg':        (7,  2 / 1,  0.42, 1200),   # firebox, lit
+
+    # Gallery: installed tubs, none of which appear anywhere else on the page.
+    'gallery/01.jpg':         (4,  3 / 2,  0.50, 1300),   # dusk, with the steps
+    'gallery/02.jpg':         (8,  None,   0.50, 1200),   # blue light, at night
+    'gallery/03.jpg':         (17, None,   0.50, 1200),   # beside the ivy wall
+    'gallery/04.jpg':         (5,  None,   0.50, 1200),   # open field, chimney
+    'gallery/05.jpg':         (10, None,   0.50, 1200),   # covered, on the yard
+    'gallery/06.jpg':         (11, None,   0.50, 1200),   # interior, close
 }
 
 
