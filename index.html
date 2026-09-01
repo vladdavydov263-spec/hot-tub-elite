@@ -859,9 +859,10 @@ footer p.desc{color:var(--espresso-soft);font-size:.93rem;max-width:280px}
    CONFIG — fill these in before publishing.
    ========================================================================= */
 const CONFIG = {
-  // Cloudflare Worker URL that relays leads to Telegram. See worker/README.
+  // Relay that forwards leads to Telegram. See relay/README.md.
+  // The stable alias, not the per-deployment URL — that one changes on every deploy.
   // Leave empty and the form falls back to opening WhatsApp with the message.
-  leadEndpoint: '',
+  leadEndpoint: 'https://relay-mu-flame.vercel.app/api/lead',
 
   ga4Id: '',        // e.g. 'G-XXXXXXXXXX' — leave empty to disable
   metaPixelId: '',  // e.g. '1234567890'   — leave empty to disable
