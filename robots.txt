@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://vladdavydov263-spec.github.io/hot-tub-elite/sitemap.xml
+Sitemap: https://hottubelite.pl/sitemap.xml

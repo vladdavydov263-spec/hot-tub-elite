@@ -20,7 +20,7 @@ export const config = { runtime: 'edge' };
 
 // Bot: @loghottube_bot. A chat id is inert without the token, so it is not a secret.
 const DEFAULT_CHAT_ID = '-1003956851336';
-const DEFAULT_ORIGIN = 'https://vladdavydov263-spec.github.io';
+const DEFAULT_ORIGIN = 'https://hottubelite.pl';
 
 const FIELD_LIMITS = { name: 80, phone: 32, email: 120, message: 800, model: 60, page: 300 };
 
