@@ -104,7 +104,39 @@ Search the repo for `CHANGE-ME` and swap in the real domain. It appears in:
 grep -rn "CHANGE-ME" .
 ```
 
-## 7. Analytics (optional)
+## 7. Custom domain
+
+The site currently answers at `https://vladdavydov263-spec.github.io/hot-tub-elite/`.
+To move it to a real domain, run one command — it rewrites the URL everywhere it is
+baked in and writes the `CNAME` file:
+
+```bash
+python3 set-domain.py hottubelite.pl
+```
+
+Add `--dry-run` first to see what changes. Then commit, push, and add the DNS records
+the script prints (it prints them on its own with no arguments too).
+
+The URL lives in eight places — canonical link, Open Graph tags, three JSON-LD blocks,
+`robots.txt`, `sitemap.xml` — plus `ALLOWED_ORIGIN` in `worker/wrangler.toml`. That last
+one is the trap: the worker rejects lead submissions from any origin it does not
+recognise, so changing the domain by hand and forgetting the worker leaves a contact
+form that fails with a CORS error and drops every lead silently. After changing the
+domain, redeploy the worker:
+
+```bash
+cd worker && wrangler deploy
+```
+
+Finally, in the repo: **Settings → Pages → Custom domain**, enter the domain, wait for
+the DNS check to pass, then tick **Enforce HTTPS**. The certificate takes about
+15 minutes and can take an hour; until it is issued the browser warns about the
+connection. That is expected — nothing is broken, it just has not been issued yet.
+
+The old `github.io` address keeps working and redirects to the new domain, so links
+already sent out do not break.
+
+## 8. Analytics (optional)
 
 Fill `ga4Id` and/or `metaPixelId` in the `CONFIG` block. Both stay dormant until the
 visitor accepts the cookie banner — required under GDPR. Leave them empty and the
