@@ -1,0 +1,13 @@
+name = "hot-tub-elite-leads"
+main = "worker.js"
+compatibility_date = "2025-01-01"
+
+[vars]
+# Exact origin of the published site. Blocks other sites from using this worker.
+# GitHub Pages project site: "https://<user>.github.io"
+# Custom domain:             "https://hottubelite.pl"
+ALLOWED_ORIGIN = "https://vladdavydov263-spec.github.io"
+
+# Secrets are NOT stored here. Set them once from the terminal:
+#   wrangler secret put TELEGRAM_BOT_TOKEN
+#   wrangler secret put TELEGRAM_CHAT_ID
