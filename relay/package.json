@@ -1,0 +1,6 @@
+{
+  "name": "hot-tub-elite-relay",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Vercel Edge Function relaying landing-page leads to Telegram"
+}

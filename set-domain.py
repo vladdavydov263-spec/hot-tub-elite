@@ -3,7 +3,7 @@
 Point the site at a custom domain.
 
 The site URL is baked into eight places — canonical link, Open Graph tags,
-three JSON-LD blocks, robots.txt, sitemap.xml — plus the worker's
+three JSON-LD blocks, robots.txt, sitemap.xml — plus the relay's
 ALLOWED_ORIGIN, which rejects lead submissions from any other origin. Miss that
 last one and the contact form starts failing with a CORS error the moment the
 domain changes, which is the kind of breakage nobody notices until leads stop
@@ -34,7 +34,7 @@ GITHUB_USER = 'vladdavydov263-spec'
 
 # Files that carry the site URL, and the worker config that carries the origin.
 URL_FILES = ['index.html', 'robots.txt', 'sitemap.xml']
-ORIGIN_FILES = ['worker/wrangler.toml']
+ORIGIN_FILES = ['relay/api/lead.js']
 
 
 def current_base() -> str:

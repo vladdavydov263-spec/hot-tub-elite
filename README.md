@@ -1,7 +1,7 @@
 # Hot Tub Elite — landing page
 
 Static landing page for a Polish garden-jacuzzi manufacturer. Hosted on GitHub Pages.
-Lead forms are relayed to Telegram through a Cloudflare Worker so the bot token is
+Lead forms are relayed to Telegram through a Vercel Edge Function so the bot token is
 never exposed in the browser.
 
 ```
@@ -9,7 +9,7 @@ index.html                  the page
 polityka-prywatnosci.html   RODO/GDPR privacy policy
 favicon.svg  robots.txt  sitemap.xml  .nojekyll
 images/                     photos — see images/README.md
-worker/                     Cloudflare Worker that forwards leads to Telegram
+relay/                      Vercel Edge Function that forwards leads to Telegram
 ```
 
 ---
@@ -17,39 +17,44 @@ worker/                     Cloudflare Worker that forwards leads to Telegram
 ## 1. Telegram bot
 
 Already set up: bot **@loghottube_bot**, posting into group **-1003956851336**.
-The chat id lives in `worker/wrangler.toml` — it is useless without the token, so
-there is no reason to hide it.
+The chat id is a default inside `relay/api/lead.js` — it is useless without the token,
+so there is no reason to hide it.
 
 > **The bot token is a password.** It must never appear in `index.html`, in this repo,
 > or in any commit. If it ever lands in a public repo, GitHub reports it to Telegram
-> and the token is revoked automatically. Step 2 sets it directly in Cloudflare, so it
+> and the token is revoked automatically. Step 2 sets it directly in Vercel, so it
 > never touches the repo. If it does leak, regenerate it with `/revoke` in @BotFather.
 
 Check the bot is actually in the group and allowed to post there — a bot that was
-added but then restricted will make `sendMessage` fail with 403, and the worker will
+added but then restricted will make `sendMessage` fail with 403, and the relay will
 answer the form with `telegram_failed`.
 
-## 2. Deploy the Worker
+## 2. Deploy the relay
 
-Needs a free Cloudflare account. `npx` fetches wrangler on demand — nothing to install
-globally.
+`relay/` is its own Vercel project. Set **Root Directory** to `relay` in the project
+settings so Vercel builds only the function — the site itself is served by GitHub Pages.
 
 ```bash
-cd worker
-npx wrangler login
-npx wrangler secret put TELEGRAM_BOT_TOKEN
-npx wrangler deploy
+cd relay
+npx vercel login
+npx vercel link
+npx vercel env add TELEGRAM_BOT_TOKEN production
+npx vercel --prod
 ```
 
-`secret put` prompts for the token and sends it straight to Cloudflare. `deploy` prints
-the URL, something like `https://hot-tub-elite-leads.<subdomain>.workers.dev`.
+`env add` prompts for the token and stores it in Vercel; it never enters this repo.
+`--prod` prints the deployment URL, and the endpoint is that URL plus `/api/lead`.
 
-## 3. Point the page at the Worker
+> Vercel's Hobby plan is for non-commercial projects. This site sells hot tubs, so
+> check whether the account's plan covers it — a suspended relay fails silently and
+> the form starts dropping leads.
+
+## 3. Point the page at the relay
 
 In `index.html`, find the `CONFIG` block near the bottom and set:
 
 ```js
-leadEndpoint: 'https://hot-tub-elite-leads.<subdomain>.workers.dev',
+leadEndpoint: 'https://<project>.vercel.app/api/lead',
 ```
 
 Until this is filled in, the form falls back to opening WhatsApp with a prefilled
@@ -96,7 +101,7 @@ Search the repo for `CHANGE-ME` and swap in the real domain. It appears in:
 
 - `index.html` — canonical URL, Open Graph tags, JSON-LD structured data
 - `robots.txt`, `sitemap.xml`
-- `worker/wrangler.toml` — `ALLOWED_ORIGIN`
+- `relay/api/lead.js` — `DEFAULT_ORIGIN`
 
 ```bash
 grep -rn "CHANGE-ME" .
@@ -116,14 +121,14 @@ Add `--dry-run` first to see what changes. Then commit, push, and add the DNS re
 the script prints (it prints them on its own with no arguments too).
 
 The URL lives in eight places — canonical link, Open Graph tags, three JSON-LD blocks,
-`robots.txt`, `sitemap.xml` — plus `ALLOWED_ORIGIN` in `worker/wrangler.toml`. That last
-one is the trap: the worker rejects lead submissions from any origin it does not
-recognise, so changing the domain by hand and forgetting the worker leaves a contact
+`robots.txt`, `sitemap.xml` — plus `DEFAULT_ORIGIN` in `relay/api/lead.js`. That last
+one is the trap: the relay rejects lead submissions from any origin it does not
+recognise, so changing the domain by hand and forgetting the relay leaves a contact
 form that fails with a CORS error and drops every lead silently. After changing the
-domain, redeploy the worker:
+domain, redeploy the relay:
 
 ```bash
-cd worker && wrangler deploy
+cd relay && npx vercel --prod
 ```
 
 Finally, in the repo: **Settings → Pages → Custom domain**, enter the domain, wait for
