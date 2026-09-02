@@ -20,13 +20,21 @@ export const config = { runtime: 'edge' };
 
 // Bot: @loghottube_bot. A chat id is inert without the token, so it is not a secret.
 const DEFAULT_CHAT_ID = '-1003956851336';
-const DEFAULT_ORIGIN = 'https://hottubelite.pl';
+
+// Several origins, not one: during a domain move both addresses serve the site, and
+// a relay that knows only the new one silently rejects every lead from the old.
+// ALLOWED_ORIGIN may override this with a comma-separated list.
+const DEFAULT_ORIGINS = [
+  'https://hottubelite.pl',
+  'https://www.hottubelite.pl',
+  'https://vladdavydov263-spec.github.io',
+];
 
 const FIELD_LIMITS = { name: 80, phone: 32, email: 120, message: 800, model: 60, page: 300 };
 
 function corsHeaders(origin, allowed) {
   return {
-    'Access-Control-Allow-Origin': origin === allowed ? origin : allowed,
+    'Access-Control-Allow-Origin': allowed.includes(origin) ? origin : allowed[0],
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type',
     'Access-Control-Max-Age': '86400',
@@ -54,10 +62,12 @@ function json(body, status, cors) {
 export default async function handler(request) {
   const token = process.env.TELEGRAM_BOT_TOKEN;
   const chatId = process.env.TELEGRAM_CHAT_ID || DEFAULT_CHAT_ID;
-  const allowedOrigin = process.env.ALLOWED_ORIGIN || DEFAULT_ORIGIN;
+  const allowedOrigins = (process.env.ALLOWED_ORIGIN || '')
+    .split(',').map((o) => o.trim()).filter(Boolean);
+  const allowed = allowedOrigins.length ? allowedOrigins : DEFAULT_ORIGINS;
 
   const origin = request.headers.get('Origin') || '';
-  const cors = corsHeaders(origin, allowedOrigin);
+  const cors = corsHeaders(origin, allowed);
 
   if (request.method === 'OPTIONS') return new Response(null, { status: 204, headers: cors });
   if (request.method !== 'POST') return json({ ok: false, error: 'method_not_allowed' }, 405, cors);
@@ -68,7 +78,7 @@ export default async function handler(request) {
   }
 
   // Reject calls from other sites reusing this endpoint.
-  if (origin && origin !== allowedOrigin) {
+  if (origin && !allowed.includes(origin)) {
     return json({ ok: false, error: 'forbidden_origin' }, 403, cors);
   }
 
